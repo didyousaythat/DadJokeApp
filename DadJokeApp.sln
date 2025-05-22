@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "dadjokeapp.client", "dadjokeapp.client\dadjokeapp.client.esproj", "{6492A000-B7B8-2DDB-AF79-C1F262EF156C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DadJokeApp.Server", "DadJokeApp.Server\DadJokeApp.Server.csproj", "{978B9FE5-48E0-4629-AD8D-FEDD47C4074B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DadJokeTests", "DadJokeTests\DadJokeTests.csproj", "{72A11778-43C7-433D-97D4-E331144FB6AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{978B9FE5-48E0-4629-AD8D-FEDD47C4074B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{978B9FE5-48E0-4629-AD8D-FEDD47C4074B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{978B9FE5-48E0-4629-AD8D-FEDD47C4074B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A11778-43C7-433D-97D4-E331144FB6AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A11778-43C7-433D-97D4-E331144FB6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A11778-43C7-433D-97D4-E331144FB6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A11778-43C7-433D-97D4-E331144FB6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

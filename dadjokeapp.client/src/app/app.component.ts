@@ -1,12 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
 
 @Component({
   selector: 'app-root',
@@ -14,17 +7,28 @@ interface WeatherForecast {
   standalone: false,
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+export class AppComponent {
+
+  public joke: string = '';
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.getForecasts();
+  getDadJoke() {
+    this.http.get('/dadjoke', { responseType: 'text' }).subscribe(
+      (result) => {
+        console.log(result);
+        this.joke = result;
+      },
+      (error) => {
+        console.error(error);
+        console.error(error.message);
+      }
+    );
   }
 
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
+  //will need to change this to a method that gets a dad joke from the controller.
+  /*getForecasts() {
+    this.http.get('/weatherforecast').subscribe(
       (result) => {
         this.forecasts = result;
       },
@@ -32,7 +36,7 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
-  }
+  }*/
 
   title = 'dadjokeapp.client';
 }

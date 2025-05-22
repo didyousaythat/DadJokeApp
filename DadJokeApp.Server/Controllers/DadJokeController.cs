@@ -1,7 +1,39 @@
 using Microsoft.AspNetCore.Mvc;
+using DadJokeApp.Server.Services;
 
 namespace DadJokeApp.Server.Controllers
 {
+    /// <summary>
+    /// Controller class for handling dad joke requests.
+    /// </summary>
+    [ApiController]
+    [Route("dadjoke")]
+    public class DadJokeController : ControllerBase
+    {
+        private static ILogger<DadJokeController> _logger;
+        private static IHttpClientFactory _clientFactory;
+        private static IDadJokeDataRetrieval _jokeRetreiver;
+
+        public DadJokeController(IHttpClientFactory clientFactory, IDadJokeDataRetrieval jokeRetreiver)
+        {
+            _clientFactory = clientFactory;
+            _jokeRetreiver = jokeRetreiver;
+        }
+
+        //DadJokeDataRetrieval jokeRetreiver = new DadJokeDataRetrieval(_clientFactory);
+
+
+        [HttpGet]
+        public string GetRandomJoke()
+        {
+            // will call the dad joke service class methods to grab a random dad joke
+            
+            return _jokeRetreiver.GetRandomJokeAsync().Result;
+        }
+    }
+
+
+    /*
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -29,5 +61,5 @@ namespace DadJokeApp.Server.Controllers
             })
             .ToArray();
         }
-    }
+    }*/
 }
