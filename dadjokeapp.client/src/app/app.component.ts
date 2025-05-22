@@ -7,16 +7,11 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   public joke: string = '';
 
   constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-
-    this.getDadJoke();
-  }
 
   getDadJoke() {
     this.http.get('/dadjoke', { responseType: 'text' }).subscribe(

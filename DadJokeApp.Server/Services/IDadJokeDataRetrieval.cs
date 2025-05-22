@@ -13,6 +13,6 @@ namespace DadJokeApp.Server.Services
         /// Retrieves a random dad joke from the ICanHazDadJoke API.
         /// </summary>
         /// <returns>A string containing the dad joke.</returns>
-        public abstract Task<string> GetRandomJokeAsync();
+        public Task<string> GetRandomJokeAsync();
     }
 }
