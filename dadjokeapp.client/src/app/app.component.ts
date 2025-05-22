@@ -16,11 +16,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     this.getDadJoke();
-    //this.getForecasts();
   }
 
   getDadJoke() {
-    this.http.get<string>('/dadjoke').subscribe(
+    this.http.get('/dadjoke', { responseType: 'text' }).subscribe(
       (result) => {
         console.log(result);
         this.joke = result;

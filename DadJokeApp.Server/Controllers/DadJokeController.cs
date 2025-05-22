@@ -1,22 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
+using DadJokeApp.Server.Services;
 
 namespace DadJokeApp.Server.Controllers
 {
+    /// <summary>
+    /// Controller class for handling dad joke requests.
+    /// </summary>
     [ApiController]
-    [Route("dadjoke")] //will resolve route to /dadjoke
+    [Route("dadjoke")]
     public class DadJokeController : ControllerBase
     {
-        private readonly ILogger<DadJokeController> _logger;
-        public DadJokeController(ILogger<DadJokeController> logger)
+        private static ILogger<DadJokeController> _logger;
+        private static IHttpClientFactory _clientFactory;
+        private static IDadJokeDataRetrieval _jokeRetreiver;
+
+        public DadJokeController(IHttpClientFactory clientFactory, IDadJokeDataRetrieval jokeRetreiver)
         {
-            _logger = logger;
+            _clientFactory = clientFactory;
+            _jokeRetreiver = jokeRetreiver;
         }
-        
+
+        //DadJokeDataRetrieval jokeRetreiver = new DadJokeDataRetrieval(_clientFactory);
+
+
         [HttpGet]
         public string GetRandomJoke()
         {
-            // needs to be replaced with a real dad joke API call
-            return "Why did the scarecrow win an award? Because he was outstanding in his field!";
+            // will call the dad joke service class methods to grab a random dad joke
+            
+            return _jokeRetreiver.GetRandomJokeAsync().Result;
         }
     }
 
