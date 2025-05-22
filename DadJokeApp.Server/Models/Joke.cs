@@ -2,11 +2,18 @@
 
 namespace DadJokeApp.Server.Models
 {
+    public enum JokeLength
+    {
+        Short,
+        Medium,
+        Long
+    }
+
     public class Joke
     {
-        public string Id { get; set; }
         [JsonPropertyName("joke")]
-        public string JokeText { get; set; }
-        public int Status { get; set; }
+        public required string JokeText { get; set; }
+
+        public JokeLength? JokeLength { get; set; }
     }
 }

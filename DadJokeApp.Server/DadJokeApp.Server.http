@@ -1,6 +1,16 @@
 @ICanHazDadJokeApp_BaseUrl = https://icanhazdadjoke.com/
 
 GET {{ICanHazDadJokeApp_BaseUrl}}
+Accept: text/plain
+
+###
+
+GET {{ICanHazDadJokeApp_BaseUrl}}/search?limit=30
+Accept: application/json
+
+###
+
+GET {{ICanHazDadJokeApp_BaseUrl}}/search?limit=30&term=butt
 Accept: application/json
 
 ###

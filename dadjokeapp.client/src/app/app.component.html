@@ -2,10 +2,26 @@
 <h1>Welcome to your one stop shop for all your dad joke needs!</h1>
 
  
-<p> Click this button to display a random dad joke below! <button class="btn" (click) = "getDadJoke()"> DadJoke </button> </p>
+<p> Click this button to display a random dad joke below! <button (click) = "getDadJoke()"> DadJoke </button> </p>
 
-<p *ngIf="joke"> {{joke}} </p>
-<p *ngIf="!joke"> a joke was supposed to be here... </p>
+<p *ngIf="singleJoke"> {{singleJoke}} </p>
+<p *ngIf="!singleJoke"> a joke was supposed to be here... </p>
+
+<p>Or search for a term and find jokes that contain that term! <input type="text" placeholder="Enter term here" #searchTerm/> <button (click) ="getDadJokeSearch(searchTerm.value)">Search</button></p>
+
+<table *ngIf="multipleJokes">
+  <thead>
+    <tr>
+      <th> Jokes </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let joke of multipleJokes.jokeList">
+      <td>{{joke.joke}}</td>
+    </tr>
+  </tbody>
+</table>
+
 <!--
  <h1 id="tableLabel">Weather forecast</h1>
 
