@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using DadJokeApp.Server.Controllers;
 using DadJokeApp.Server.Models;
 using DadJokeApp.Server.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace DadJokeTests.Controllers
@@ -25,8 +24,8 @@ namespace DadJokeTests.Controllers
             mockDadJokeDataRetrieval.Setup(x => x.GetRandomJokeAsync()).ReturnsAsync("This is a dad joke");
 
             var result = controller.GetRandomJoke();
+            
             // Assert
-            //Assert.NotNull(result);
             Assert.IsType<string>(result);
         }
     }

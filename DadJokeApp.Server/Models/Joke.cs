@@ -2,6 +2,9 @@
 
 namespace DadJokeApp.Server.Models
 {
+    /// <summary>
+    /// Enum values for joke length.
+    /// </summary>
     public enum JokeLength
     {
         Short,
@@ -9,6 +12,9 @@ namespace DadJokeApp.Server.Models
         Long
     }
 
+    /// <summary>
+    /// Joke class object for induvidual jokes and their length catagory.
+    /// </summary>
     public class Joke
     {
         [JsonPropertyName("joke")]

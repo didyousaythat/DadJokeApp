@@ -1,11 +1,9 @@
 
-<h1>Welcome to your one stop shop for all your dad joke needs!</h1>
+<h2>Welcome to your one stop shop for all your dad joke needs!</h2>
 
- 
 <p> Click this button to display a random dad joke below! <button (click) = "getDadJoke()"> DadJoke </button> </p>
-
 <p *ngIf="singleJoke"> {{singleJoke}} </p>
-<p *ngIf="!singleJoke"> a joke was supposed to be here... </p>
+<hr />
 
 <p>Or search for a term and find jokes that contain that term! <input type="text" placeholder="Enter term here" #searchTerm/> <button (click) ="getDadJokeSearch(searchTerm.value)">Search</button></p>
 
@@ -16,33 +14,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let joke of multipleJokes.jokeList">
-      <td>{{joke.joke}}</td>
+    <tr  *ngFor="let joke of listOfShortJokes">
+      <td [innerHTML]="highlightTerm(joke, multipleJokes.searchTerm)"></td>
+    </tr>
+    <br />
+    <tr *ngFor="let joke of listOfMediumJokes">
+      <td [innerHTML]="highlightTerm(joke, multipleJokes.searchTerm)"></td>
+    </tr>
+    <br />
+    <tr *ngFor="let joke of listOfLongJokes">
+      <td [innerHTML]="highlightTerm(joke, multipleJokes.searchTerm)"></td>
     </tr>
   </tbody>
 </table>
-
-<!--
- <h1 id="tableLabel">Weather forecast</h1>
-
-
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="forecasts">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
-    </tr>
-  </tbody>
-</table> -->

@@ -10,7 +10,6 @@ namespace DadJokeApp.Server.Controllers
     [ApiController]
     public class DadJokeController : ControllerBase
     {
-        //private static ILogger<DadJokeController> _logger;
         private static IHttpClientFactory _clientFactory;
         private static IDadJokeDataRetrieval _jokeRetreiver;
 

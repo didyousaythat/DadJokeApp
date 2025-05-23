@@ -18,7 +18,7 @@ namespace DadJokeApp.Server.Services
         /// <summary>
         /// Retreives a list of dad jokes from the ICanHazDadJoke API.
         /// </summary>
-        /// <returns>A list of dad joke strings</returns>
+        /// <returns>A SearchJoke object</returns>
         public Task<SearchJoke> GetDadJokeSearchAsync(string searchTerm);
     }
 }
