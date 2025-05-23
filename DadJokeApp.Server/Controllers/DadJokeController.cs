@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using DadJokeApp.Server.Services;
+using DadJokeApp.Server.Models;
 
 namespace DadJokeApp.Server.Controllers
 {
@@ -7,59 +8,33 @@ namespace DadJokeApp.Server.Controllers
     /// Controller class for handling dad joke requests.
     /// </summary>
     [ApiController]
-    [Route("dadjoke")]
     public class DadJokeController : ControllerBase
     {
-        private static ILogger<DadJokeController> _logger;
-        private static IHttpClientFactory _clientFactory;
         private static IDadJokeDataRetrieval _jokeRetreiver;
 
-        public DadJokeController(IHttpClientFactory clientFactory, IDadJokeDataRetrieval jokeRetreiver)
+        public DadJokeController(IDadJokeDataRetrieval jokeRetreiver)
         {
-            _clientFactory = clientFactory;
             _jokeRetreiver = jokeRetreiver;
         }
 
-        //DadJokeDataRetrieval jokeRetreiver = new DadJokeDataRetrieval(_clientFactory);
-
 
         [HttpGet]
+        [Route("dadjoke")]
         public string GetRandomJoke()
-        {
-            // will call the dad joke service class methods to grab a random dad joke
-            
+        {   
             return _jokeRetreiver.GetRandomJokeAsync().Result;
         }
-    }
 
-
-    /*
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
-    {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        [HttpGet]
+        [Route("dadjoke/search")]
+        public SearchJoke GetDadJokeSearch([FromQuery] string searchTerm = "")
+        {  
+            if(searchTerm == null)
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return null;
+            }
+
+            return _jokeRetreiver.GetDadJokeSearchAsync(searchTerm).Result;
         }
-    }*/
+    }
 }
