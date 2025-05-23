@@ -28,5 +28,30 @@ namespace DadJokeTests.Controllers
             // Assert
             Assert.IsType<string>(result);
         }
+
+        [Fact]
+        public void GetRandomJokeSearchShouldReturnJokeSearchObjectWhenNormalReturnIsSuccessful()
+        {
+            // Arrange
+            var controller = new DadJokeController(mockHttpClientFactory.Object, mockDadJokeDataRetrieval.Object);
+            var searchTerm = "dad";
+
+            SearchJoke searchJoke = new SearchJoke
+            {
+                Results = new List<Joke>
+                {
+                    new Joke { JokeText = "This is a dad joke", JokeLength = JokeLength.Short },
+                    new Joke { JokeText = "This is another dad joke", JokeLength = JokeLength.Short }
+                },
+            };
+
+            // Act
+            mockDadJokeDataRetrieval.Setup(x => x.GetDadJokeSearchAsync(searchTerm)).ReturnsAsync(searchJoke);
+
+            var result = controller.GetDadJokeSearch(searchTerm);
+
+            // Assert
+            Assert.IsType<SearchJoke>(result);
+        }
     }
 }

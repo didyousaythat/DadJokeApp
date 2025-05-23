@@ -29,8 +29,13 @@ namespace DadJokeApp.Server.Controllers
 
         [HttpGet]
         [Route("dadjoke/search")]
-        public SearchJoke GetDadJokeSearch(string searchTerm)
+        public SearchJoke GetDadJokeSearch([FromQuery] string searchTerm = "")
         {  
+            if(searchTerm == null)
+            {
+                return null;
+            }
+
             return _jokeRetreiver.GetDadJokeSearchAsync(searchTerm).Result;
         }
     }

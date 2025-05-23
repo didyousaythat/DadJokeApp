@@ -10,7 +10,7 @@ Accept: application/json
 
 ###
 
-GET {{ICanHazDadJokeApp_BaseUrl}}/search?limit=30&term=butt
+GET {{ICanHazDadJokeApp_BaseUrl}}/search?limit=30&term=
 Accept: application/json
 
 ###

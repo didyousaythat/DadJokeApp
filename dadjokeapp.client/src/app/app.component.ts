@@ -46,7 +46,22 @@ export class AppComponent {
     );
   }
 
-  getDadJokeSearch(searchTerm: string) {
+  getDadJokeSearch(inputSearchTerm: string) {
+
+    if (inputSearchTerm == undefined) {
+      inputSearchTerm = "";
+    }
+
+    //Sanatize the input
+    //regex given removes any non alphanumeric characters
+    var searchTerm = inputSearchTerm.replace(/[^\w\s]/gi, '');
+
+    //checks if search is longer than one word and alerts the user if it is.
+      //empty strings are technically valid as they will return a full list of jokes.
+    if (searchTerm.split(' ').length > 1) {
+      return alert('Please enter a single word.');
+    }
+
     //calls the search controller endpoint and uses url parameters to pass the search term.
     this.http.get<any>('/dadjoke/search', { params: { searchTerm } })
       .pipe(map(apiResult => ({
@@ -56,10 +71,11 @@ export class AppComponent {
       }))
       ).subscribe(
         (result: DadJokeList) => {
+          //assign the result to the multipleJokes object
           this.multipleJokes.jokeList = result.jokeList;
           this.multipleJokes.searchTerm = result.searchTerm;
 
-          //need to reset the lists each time method is called so that we don't just keep stacking onto the lists with each new request.
+          //reset the lists each time method is called so that we don't just keep stacking onto the lists with each new request.
           this.listOfShortJokes = [];
           this.listOfMediumJokes = [];
           this.listOfLongJokes = [];
@@ -88,14 +104,15 @@ export class AppComponent {
     if (!term) {
       return joke;
     }
-    // Create a case-insensitive global regex
+    //create a case-insensitive global regex
     const regex = new RegExp(term, 'gi');
-    // Replace matches with highlighted span
+    //replace matches with highlighted span
     const highlighted = joke.replace(
       regex,
       match => `<span style="background-color: yellow">${match}</span>`
     );
-    // Mark the HTML as safe for Angular
+    //mark the HTML as safe for Angular
+      //not reccommended to utilize this in applications handling sensitive information.
     return this.sanitizer.bypassSecurityTrustHtml(highlighted);
   }
 
