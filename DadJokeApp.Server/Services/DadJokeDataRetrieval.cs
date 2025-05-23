@@ -34,13 +34,20 @@ namespace DadJokeApp.Server.Services
             client.DefaultRequestHeaders.Add("Accept", acceptHeaderText);
 
             //make the request to the API and check if it was successful
-            var response = await client.GetAsync(apiUrl);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                //read response content and check if it was empty or null before assigning and returning the value
-                var jokeDataString = await response.Content.ReadAsStringAsync();
+                var response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    //read response content and check if it was empty or null before assigning and returning the value
+                    var jokeDataString = await response.Content.ReadAsStringAsync();
 
-                jokeData = string.IsNullOrEmpty(jokeDataString) ? string.Empty : jokeDataString;
+                    jokeData = string.IsNullOrEmpty(jokeDataString) ? string.Empty : jokeDataString;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new HttpRequestException("Error retrieving dad joke from the API.", ex);
             }
 
             return jokeData;
@@ -69,38 +76,46 @@ namespace DadJokeApp.Server.Services
             client.DefaultRequestHeaders.Add("Accept", acceptHeaderJson);
 
             //make the request to the API and check if it was successful
-            var response = await client.GetAsync(searchUrl);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                //read the response content and deserialize it into a SearchJoke object
-                var jokeDataJsonString = await response.Content.ReadAsStringAsync();
-                
-                if(string.IsNullOrEmpty(jokeDataJsonString))
+                var response = await client.GetAsync(searchUrl);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    return null;
+                    //read the response content and deserialize it into a SearchJoke object
+                    var jokeDataJsonString = await response.Content.ReadAsStringAsync();
+
+                    if (string.IsNullOrEmpty(jokeDataJsonString))
+                    {
+                        return null;
+                    }
+
+                    jokeData = JsonSerializer.Deserialize<SearchJoke>(jokeDataJsonString);
+
+                    //loop through the list of jokes and set the JokeLength according to the amount of words in the string
+                    foreach (Joke joke in jokeData.Results)
+                    {
+                        var wordCount = joke.JokeText.Split(' ').Length;
+
+                        if (wordCount < 10)
+                        {
+                            joke.JokeLength = JokeLength.Short;
+                        }
+                        else if (wordCount >= 10 && wordCount < 20)
+                        {
+                            joke.JokeLength = JokeLength.Medium;
+                        }
+                        else
+                        {
+                            joke.JokeLength = JokeLength.Long;
+                        }
+                    }
+
                 }
-
-                jokeData = JsonSerializer.Deserialize<SearchJoke>(jokeDataJsonString);
-
-                //loop through the list of jokes and set the JokeLength according to the amount of words in the string
-                foreach (Joke joke in jokeData.Results)
-                {
-                    var wordCount = joke.JokeText.Split(' ').Length;
-
-                    if (wordCount < 10)
-                    {
-                        joke.JokeLength = JokeLength.Short;
-                    }
-                    else if (wordCount >= 10 && wordCount < 20)
-                    {
-                        joke.JokeLength = JokeLength.Medium;
-                    }
-                    else
-                    {
-                        joke.JokeLength = JokeLength.Long;
-                    }
-                }
-
+            }
+            catch(HttpRequestException ex)
+            {
+                throw new HttpRequestException("Error retrieving dad jokes from the API.", ex);
             }
             return jokeData;
         }

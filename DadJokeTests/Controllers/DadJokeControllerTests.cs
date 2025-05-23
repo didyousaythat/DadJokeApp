@@ -12,14 +12,13 @@ namespace DadJokeTests.Controllers
 {
     public class DadJokeControllerTests
     {
-        Mock<IHttpClientFactory> mockHttpClientFactory = new Mock<IHttpClientFactory>();
         Mock<IDadJokeDataRetrieval> mockDadJokeDataRetrieval = new Mock<IDadJokeDataRetrieval>();
 
         [Fact]
         public void GetRandomJokeShouldReturnStringWhenNormalReturnIsSuccessful()
         {
             // Arrange
-            var controller = new DadJokeController(mockHttpClientFactory.Object, mockDadJokeDataRetrieval.Object);
+            var controller = new DadJokeController(mockDadJokeDataRetrieval.Object);
             // Act
             mockDadJokeDataRetrieval.Setup(x => x.GetRandomJokeAsync()).ReturnsAsync("This is a dad joke");
 
@@ -33,7 +32,7 @@ namespace DadJokeTests.Controllers
         public void GetRandomJokeSearchShouldReturnJokeSearchObjectWhenNormalReturnIsSuccessful()
         {
             // Arrange
-            var controller = new DadJokeController(mockHttpClientFactory.Object, mockDadJokeDataRetrieval.Object);
+            var controller = new DadJokeController(mockDadJokeDataRetrieval.Object);
             var searchTerm = "dad";
 
             SearchJoke searchJoke = new SearchJoke
