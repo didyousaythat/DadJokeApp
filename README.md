@@ -9,7 +9,7 @@ When launched, you will be greeted with the landing page
 ![Landing page](Images/ApplicationDefaultPage.PNG)   
 
 Once there, you can click the "Get a Dad Joke" button to fetch a random dad joke from the API. The joke will be displayed on the page.  
-![Random Joke](Images/ApplicationDefaultPage.PNG)   
+![Random Joke](Images/ApplicationRandomJoke.PNG)   
 
 If you want to search for jokes with a specific term in it, you can enter it in the search bar and click the search button to display jokes with that term.  
 ![Search Joke](Images/ApplicationSearchJoke.PNG)  
