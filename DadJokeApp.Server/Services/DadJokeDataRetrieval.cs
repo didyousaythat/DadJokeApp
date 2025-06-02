@@ -9,7 +9,7 @@ namespace DadJokeApp.Server.Services
     /// </summary>
     public class DadJokeDataRetrieval : IDadJokeDataRetrieval
     {
-        private static IHttpClientFactory _clientFactory;
+        private readonly IHttpClientFactory _clientFactory;
         private const string apiUrl = "https://icanhazdadjoke.com/";
         private const string acceptHeaderJson = "application/json";
         private const string acceptHeaderText = "text/plain";
